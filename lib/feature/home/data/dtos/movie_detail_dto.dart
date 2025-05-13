@@ -175,6 +175,19 @@ class Genres {
   }
 }
 
+class ProductionCompany {
+  final int id;
+  final String name;
+
+  ProductionCompany({required this.id, required this.name});
+
+  factory ProductionCompany.fromJson(Map<String, dynamic> json) {
+    return ProductionCompany(id: json['id'], name: json['name']);
+  }
+
+  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
 class ProductionCountries {
   String? iso31661;
   String? name;
