@@ -14,4 +14,14 @@ class RemoteMovieService implements MovieService {
     final response = await dio.get('/$id', queryParameters: {'language': 'ko'});
     return MovieDetailDto.fromJson(response.data);
   }
+
+  @override
+  Future<MovieResponseDto?> fetchNowPlayingMovies() async {
+    final response = await dio.get(
+      '/now_playing',
+      queryParameters: {'language': 'ko'},
+    );
+
+    return MovieResponseDto.fromJson(response.data);
+  }
 }
