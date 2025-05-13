@@ -44,4 +44,14 @@ class RemoteMovieService implements MovieService {
 
     return MovieResponseDto.fromJson(response.data);
   }
+
+  @override
+  Future<MovieResponseDto?> fetchUpcomingMovies() async {
+    final response = await dio.get(
+      '/upcoming',
+      queryParameters: {'language': 'ko'},
+    );
+
+    return MovieResponseDto.fromJson(response.data);
+  }
 }
