@@ -1,4 +1,5 @@
 import 'package:flutter_flicksy/feature/home/data/services/remote_movie_service.dart';
+import 'package:flutter_flicksy/feature/home/domain/entities/movie.dart';
 import 'package:flutter_flicksy/feature/home/domain/entities/movie_detail.dart';
 import 'package:flutter_flicksy/feature/home/domain/repositories/movie_repository.dart';
 
@@ -27,5 +28,13 @@ class RemoteMovieRepository implements MovieRepository {
       voteAverage: result.voteAverage,
       voteCount: result.voteCount,
     );
+  }
+
+  @override
+  Future<List<Movie>?> fetchNowPlayingMovies() async {
+    final result = await _service.fetchNowPlayingMovies();
+    return result?.results
+        .map((e) => Movie(id: e.id, posterPath: e.posterPath))
+        .toList();
   }
 }
