@@ -55,3 +55,9 @@ class RemoteMovieService implements MovieService {
     return MovieResponseDto.fromJson(response.data);
   }
 }
+
+final remoteMovieServiceProvider = Provider<RemoteMovieService>((ref) {
+  final dio = Dio(BaseOptions(baseUrl: 'https://api.themoviedb.org/3/movie'));
+
+  return RemoteMovieService(dio: dio);
+});
