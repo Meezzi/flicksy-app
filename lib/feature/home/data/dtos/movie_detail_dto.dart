@@ -1,82 +1,86 @@
 class MovieDetailDto {
-  bool adult;
-  String? backdropPath;
-  BelongsToCollection? belongsToCollection;
-  int budget;
-  List<Genres> genres;
-  String homepage;
-  int id;
-  String imdbId;
-  List<String> originCountry;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String posterPath;
-  List<String> productionCompanies;
-  List<ProductionCountries> productionCountries;
-  String releaseDate;
-  int revenue;
-  int runtime;
-  List<SpokenLanguages> spokenLanguages;
-  String status;
-  String tagline;
-  String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
+  final bool? adult;
+  final String? backdropPath;
+  final BelongsToCollection? belongsToCollection;
+  final int? budget;
+  final List<Genres> genres;
+  final String? homepage;
+  final int id;
+  final String? imdbId;
+  final List<String> originCountry;
+  final String? originalLanguage;
+  final String originalTitle;
+  final String overview;
+  final double popularity;
+  final String posterPath;
+  final List<ProductionCompany> productionCompanies;
+  final List<ProductionCountries>? productionCountries;
+  final String releaseDate;
+  final int? revenue;
+  final int runtime;
+  final List<SpokenLanguages>? spokenLanguages;
+  final String? status;
+  final String? tagline;
+  final String title;
+  final bool? video;
+  final double voteAverage;
+  final int voteCount;
 
   MovieDetailDto({
-    required this.adult,
-    this.backdropPath,
-    this.belongsToCollection,
-    required this.budget,
     required this.genres,
-    required this.homepage,
     required this.id,
-    required this.imdbId,
     required this.originCountry,
-    required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
     required this.posterPath,
     required this.productionCompanies,
-    required this.productionCountries,
     required this.releaseDate,
-    required this.revenue,
     required this.runtime,
-    required this.spokenLanguages,
     required this.status,
-    required this.tagline,
     required this.title,
-    required this.video,
     required this.voteAverage,
     required this.voteCount,
+    this.adult,
+    this.backdropPath,
+    this.budget,
+    this.belongsToCollection,
+    this.homepage,
+    this.imdbId,
+    this.originalLanguage,
+    this.productionCountries,
+    this.revenue,
+    this.spokenLanguages,
+    this.tagline,
+    this.video,
   });
 
   factory MovieDetailDto.fromJson(Map<String, dynamic> json) {
     return MovieDetailDto(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
-      belongsToCollection: json['belongs_to_collection'].fromJson(
-        json['belongs_to_collection'],
-      ),
+      belongsToCollection:
+          json['belongs_to_collection'] != null
+              ? BelongsToCollection.fromJson(json['belongs_to_collection'])
+              : null,
       budget: json['budget'],
       genres: (json['genres'] as List).map((e) => Genres.fromJson(e)).toList(),
       homepage: json['homepage'],
       id: json['id'],
       imdbId: json['imdb_id'],
-      originCountry: List<String>.from(json['origin_country']),
+      originCountry: List<String>.from(json['origin_country'] ?? []),
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
       overview: json['overview'],
       popularity: (json['popularity'] as num).toDouble(),
       posterPath: json['poster_path'],
-      productionCompanies: List<String>.from(json['production_companies']),
+      productionCompanies:
+          (json['production_companies'] as List)
+              .map((e) => ProductionCompany.fromJson(e))
+              .toList(),
       productionCountries:
-          (json['production_countries'] as List)
-              .map((e) => ProductionCountries.fromJson(e))
+          (json['production_countries'] as List?)
+              ?.map((e) => ProductionCountries.fromJson(e))
               .toList(),
       releaseDate: json['release_date'],
       revenue: json['revenue'],
@@ -111,13 +115,13 @@ class MovieDetailDto {
       'popularity': popularity,
       'poster_path': posterPath,
       'production_companies':
-          productionCompanies.map((name) => {'name': name}).toList(),
+          productionCompanies.map((e) => e.toJson()).toList(),
       'production_countries':
-          productionCountries.map((e) => e.toJson()).toList(),
+          productionCountries?.map((e) => e.toJson()).toList(),
       'release_date': releaseDate,
       'revenue': revenue,
       'runtime': runtime,
-      'spoken_languages': spokenLanguages.map((e) => e.toJson()).toList(),
+      'spoken_languages': spokenLanguages?.map((e) => e.toJson()).toList(),
       'status': status,
       'tagline': tagline,
       'title': title,
