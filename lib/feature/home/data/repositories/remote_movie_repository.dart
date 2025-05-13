@@ -45,4 +45,12 @@ class RemoteMovieRepository implements MovieRepository {
         .map((e) => Movie(id: e.id, posterPath: e.posterPath))
         .toList();
   }
+
+  @override
+  Future<List<Movie>?> fetchTopRatedMovies() async {
+    final result = await _service.fetchTopRatedMovies();
+    return result?.results
+        .map((e) => Movie(id: e.id, posterPath: e.posterPath))
+        .toList();
+  }
 }
