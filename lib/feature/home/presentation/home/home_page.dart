@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flicksy/feature/home/core/constants/poster_base_url.dart';
+import 'package:flutter_flicksy/feature/home/domain/entities/movie.dart';
 import 'package:flutter_flicksy/feature/home/presentation/providers/view_model_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 part 'widgets/horizontal_movie_list.dart';
@@ -29,16 +30,16 @@ class HomePage extends ConsumerWidget {
                   _MoviePoster(posterPath: data.popular.first.posterPath),
 
                   _LabelText(text: '현재 상영중'),
-                  _HorizontalMovieList(),
+                  _HorizontalMovieList(movieList: data.nowPlaying),
 
                   _LabelText(text: '인기순'),
-                  _PopularMovieList(),
+                  _PopularMovieList(movieList: data.popular,),
 
                   _LabelText(text: '평점 높은 순'),
-                  _HorizontalMovieList(),
+                  _HorizontalMovieList(movieList: data.topRated),
 
                   _LabelText(text: '개봉예정'),
-                  _HorizontalMovieList(),
+                  _HorizontalMovieList(movieList: data.upcoming),
                 ],
               );
             },
