@@ -34,7 +34,7 @@ class HomePage extends ConsumerWidget {
                   _HorizontalMovieList(movieList: data.nowPlaying),
 
                   _LabelText(text: '인기순'),
-                  _PopularMovieList(movieList: data.popular,),
+                  _PopularMovieList(movieList: data.popular),
 
                   _LabelText(text: '평점 높은 순'),
                   _HorizontalMovieList(movieList: data.topRated),
@@ -70,9 +70,9 @@ class _MoviePoster extends StatelessWidget {
               MaterialPageRoute(builder: (context) => DetailPage(id: movie.id)),
             );
           },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.network(imageUrl, fit: BoxFit.cover),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(imageUrl, fit: BoxFit.cover),
           ),
         ),
       ),
