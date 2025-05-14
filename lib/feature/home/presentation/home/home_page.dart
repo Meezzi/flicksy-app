@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flicksy/feature/home/core/constants/poster_base_url.dart';
 import 'package:flutter_flicksy/feature/home/domain/entities/movie.dart';
+import 'package:flutter_flicksy/feature/home/presentation/detail/detail_page.dart';
 import 'package:flutter_flicksy/feature/home/presentation/providers/view_model_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 part 'widgets/horizontal_movie_list.dart';
@@ -27,7 +28,7 @@ class HomePage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _LabelText(text: '가장 인기있는'),
-                  _MoviePoster(posterPath: data.popular.first.posterPath),
+                  _MoviePoster(movie: data.popular.first),
 
                   _LabelText(text: '현재 상영중'),
                   _HorizontalMovieList(movieList: data.nowPlaying),
@@ -51,20 +52,28 @@ class HomePage extends ConsumerWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
-  const _MoviePoster({required this.posterPath});
+  const _MoviePoster({required this.movie});
 
-  final String posterPath;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = '$posterBaseUrl$posterPath';
+    final imageUrl = '$posterBaseUrl${movie.posterPath}';
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: double.infinity,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailPage(id: movie.id)),
+            );
+          },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Image.network(imageUrl, fit: BoxFit.cover),
+          ),
         ),
       ),
     );
