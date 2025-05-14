@@ -1,6 +1,9 @@
 part of 'package:flutter_flicksy/feature/home/presentation/detail/detail_page.dart';
 
 class _BoxOfficeInformation extends StatelessWidget {
+  const _BoxOfficeInformation({required this.detail});
+  final MovieDetail detail;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,27 +19,42 @@ class _BoxOfficeInformation extends StatelessWidget {
         SizedBox(height: 12),
         SizedBox(
           height: 70,
-          child: ListView.separated(
-            itemCount: 6,
+          child: ListView(
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => SizedBox(width: 10),
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _BoxOfficeContent(title: '6.949', content: '평점'),
-                    ],
-                  ),
-                ),
-              );
-            },
+            children: [
+              _BoxOfficeContent(
+                title: '평점',
+                content: detail.voteAverage.toString(),
+              ),
+
+              SizedBox(width: 16),
+
+              _BoxOfficeContent(
+                title: '평점투표수',
+                content: detail.voteCount.toString(),
+              ),
+              
+              SizedBox(width: 16),
+
+              _BoxOfficeContent(
+                title: '인기점수',
+                content: detail.popularity.toString(),
+              ),
+              
+              SizedBox(width: 16),
+
+              _BoxOfficeContent(
+                title: '예산',
+                content: '\$${detail.budget.toString()}',
+              ),
+              
+              SizedBox(width: 16),
+              
+              _BoxOfficeContent(
+                title: '수익',
+                content: '\$${detail.revenue.toString()}',
+              ),
+            ],
           ),
         ),
       ],
@@ -52,6 +70,20 @@ class _BoxOfficeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text(content), Text(content)]);
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(children: [Text(content), Text(title)]),
+          ],
+        ),
+      ),
+    );
   }
 }

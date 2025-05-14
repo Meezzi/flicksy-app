@@ -1,6 +1,10 @@
 part of 'package:flutter_flicksy/feature/home/presentation/home/home_page.dart';
 
 class _HorizontalMovieList extends StatelessWidget {
+  const _HorizontalMovieList({required this.movieList});
+
+  final List<Movie> movieList;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,9 +18,21 @@ class _HorizontalMovieList extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(width: 12),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network('https://picsum.photos/200/300'),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(id: movieList[index].id),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    '$posterBaseUrl${movieList[index].posterPath}',
+                  ),
+                ),
               );
             },
           ),
@@ -27,6 +43,10 @@ class _HorizontalMovieList extends StatelessWidget {
 }
 
 class _PopularMovieList extends StatelessWidget {
+  const _PopularMovieList({required this.movieList});
+
+  final List<Movie> movieList;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,9 +63,23 @@ class _PopularMovieList extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 32),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network('https://picsum.photos/200/300'),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    DetailPage(id: movieList[index].id),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          '$posterBaseUrl${movieList[index].posterPath}',
+                        ),
+                      ),
                     ),
                   ),
 
