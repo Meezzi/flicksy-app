@@ -21,38 +21,43 @@ class HomePage extends ConsumerWidget {
               Row(children: [Icon(Icons.image_not_supported_outlined)]),
       data: (data) {
         return Scaffold(
-          body: ListView.builder(
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _LabelText(text: '가장 인기있는'),
-                  _MoviePoster(movie: data.popular.first),
-
-                  _LabelText(text: '현재 상영중'),
-                  _HorizontalMovieList(
-                    tag: 'nowPlaying',
-                    movieList: data.nowPlaying,
-                  ),
-
-                  _LabelText(text: '인기순'),
-                  _PopularMovieList(tag: 'popular', movieList: data.popular),
-
-                  _LabelText(text: '평점 높은 순'),
-                  _HorizontalMovieList(
-                    tag: 'topRated',
-                    movieList: data.topRated,
-                  ),
-
-                  _LabelText(text: '개봉예정'),
-                  _HorizontalMovieList(
-                    tag: 'upcoming',
-                    movieList: data.upcoming,
-                  ),
-                ],
-              );
+          body: RefreshIndicator(
+            onRefresh: () async {
+              await ref.read(homeViewModelProvider.notifier).fetchMovies();
             },
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _LabelText(text: '가장 인기있는'),
+                    _MoviePoster(movie: data.popular.first),
+
+                    _LabelText(text: '현재 상영중'),
+                    _HorizontalMovieList(
+                      tag: 'nowPlaying',
+                      movieList: data.nowPlaying,
+                    ),
+
+                    _LabelText(text: '인기순'),
+                    _PopularMovieList(tag: 'popular', movieList: data.popular),
+
+                    _LabelText(text: '평점 높은 순'),
+                    _HorizontalMovieList(
+                      tag: 'topRated',
+                      movieList: data.topRated,
+                    ),
+
+                    _LabelText(text: '개봉예정'),
+                    _HorizontalMovieList(
+                      tag: 'upcoming',
+                      movieList: data.upcoming,
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         );
       },
