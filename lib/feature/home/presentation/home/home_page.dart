@@ -31,16 +31,25 @@ class HomePage extends ConsumerWidget {
                   _MoviePoster(movie: data.popular.first),
 
                   _LabelText(text: '현재 상영중'),
-                  _HorizontalMovieList(movieList: data.nowPlaying),
+                  _HorizontalMovieList(
+                    tag: 'nowPlaying',
+                    movieList: data.nowPlaying,
+                  ),
 
                   _LabelText(text: '인기순'),
-                  _PopularMovieList(movieList: data.popular),
+                  _PopularMovieList(tag: 'popular', movieList: data.popular),
 
                   _LabelText(text: '평점 높은 순'),
-                  _HorizontalMovieList(movieList: data.topRated),
+                  _HorizontalMovieList(
+                    tag: 'topRated',
+                    movieList: data.topRated,
+                  ),
 
                   _LabelText(text: '개봉예정'),
-                  _HorizontalMovieList(movieList: data.upcoming),
+                  _HorizontalMovieList(
+                    tag: 'upcoming',
+                    movieList: data.upcoming,
+                  ),
                 ],
               );
             },
@@ -67,14 +76,21 @@ class _MoviePoster extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetailPage(id: movie.id)),
+              MaterialPageRoute(
+                builder:
+                    (context) => DetailPage(
+                      tag: '${movie.id}',
+                      id: movie.id,
+                      poster: imageUrl,
+                    ),
+              ),
             );
           },
           child: Hero(
             tag: '${movie.id}',
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(imageUrl, fit: BoxFit.cover),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.network(imageUrl, fit: BoxFit.cover),
             ),
           ),
         ),

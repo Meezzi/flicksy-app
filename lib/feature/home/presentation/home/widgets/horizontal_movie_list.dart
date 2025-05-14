@@ -1,8 +1,9 @@
 part of 'package:flutter_flicksy/feature/home/presentation/home/home_page.dart';
 
 class _HorizontalMovieList extends StatelessWidget {
-  const _HorizontalMovieList({required this.movieList});
+  const _HorizontalMovieList({required this.tag, required this.movieList});
 
+  final String tag;
   final List<Movie> movieList;
 
   @override
@@ -23,14 +24,23 @@ class _HorizontalMovieList extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailPage(id: movieList[index].id),
+                      builder:
+                          (context) => DetailPage(
+                            tag: '$tag-${movieList[index].id}',
+                            id: movieList[index].id,
+                            poster:
+                                '$posterBaseUrl${movieList[index].posterPath}',
+                          ),
                     ),
                   );
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    '$posterBaseUrl${movieList[index].posterPath}',
+                child: Hero(
+                  tag: '$tag-${movieList[index].id}',
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      '$posterBaseUrl${movieList[index].posterPath}',
+                    ),
                   ),
                 ),
               );
@@ -43,8 +53,9 @@ class _HorizontalMovieList extends StatelessWidget {
 }
 
 class _PopularMovieList extends StatelessWidget {
-  const _PopularMovieList({required this.movieList});
+  const _PopularMovieList({required this.tag, required this.movieList});
 
+  final String tag;
   final List<Movie> movieList;
 
   @override
@@ -69,15 +80,22 @@ class _PopularMovieList extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder:
-                                (context) =>
-                                    DetailPage(id: movieList[index].id),
+                                (context) => DetailPage(
+                                  tag: '$tag-${movieList[index].id}',
+                                  id: movieList[index].id,
+                                  poster:
+                                      '$posterBaseUrl${movieList[index].posterPath}',
+                                ),
                           ),
                         );
                       },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          '$posterBaseUrl${movieList[index].posterPath}',
+                      child: Hero(
+                        tag: 'popular-${movieList[index].id}',
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            '$posterBaseUrl${movieList[index].posterPath}',
+                          ),
                         ),
                       ),
                     ),
