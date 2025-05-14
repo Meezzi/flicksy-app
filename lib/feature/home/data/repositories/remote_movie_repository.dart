@@ -25,6 +25,7 @@ class RemoteMovieRepository implements MovieRepository {
       runtime: result.runtime,
       tagline: result.tagline,
       title: result.title,
+      posterPath: result.posterPath,
       voteAverage: result.voteAverage,
       voteCount: result.voteCount,
     );

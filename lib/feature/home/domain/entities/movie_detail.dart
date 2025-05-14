@@ -10,6 +10,7 @@ class MovieDetail {
   final int runtime;
   final String tagline;
   final String title;
+  final String posterPath;
   final double voteAverage;
   final int voteCount;
 
@@ -25,6 +26,7 @@ class MovieDetail {
     required this.runtime,
     required this.tagline,
     required this.title,
+    required this.posterPath,
     required this.voteAverage,
     required this.voteCount,
   });
