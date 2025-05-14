@@ -1,6 +1,10 @@
 part of 'package:flutter_flicksy/feature/home/presentation/detail/detail_page.dart';
 
 class _Category extends StatelessWidget {
+  const _Category({required this.categories});
+
+  final List<String> categories;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -8,7 +12,7 @@ class _Category extends StatelessWidget {
       child: SizedBox(
         height: 32,
         child: ListView.separated(
-          itemCount: 10,
+          itemCount: categories.length,
           separatorBuilder: (context, index) => SizedBox(width: 10),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
@@ -18,7 +22,10 @@ class _Category extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.white),
               ),
-              child: Text('Animation', style: TextStyle(color: Colors.blue)),
+              child: Text(
+                categories[index],
+                style: TextStyle(color: Colors.blue),
+              ),
             );
           },
         ),
