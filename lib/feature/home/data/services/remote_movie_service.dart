@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_flicksy/feature/home/data/dtos/movie_detail_dto.dart';
 import 'package:flutter_flicksy/feature/home/data/dtos/movie_response_dto.dart';
 import 'package:flutter_flicksy/feature/home/data/services/movie_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RemoteMovieService implements MovieService {
   final Dio dio;
@@ -55,9 +54,3 @@ class RemoteMovieService implements MovieService {
     return MovieResponseDto.fromJson(response.data);
   }
 }
-
-final remoteMovieServiceProvider = Provider<RemoteMovieService>((ref) {
-  final dio = Dio(BaseOptions(baseUrl: 'https://api.themoviedb.org/3/movie'));
-
-  return RemoteMovieService(dio: dio);
-});
