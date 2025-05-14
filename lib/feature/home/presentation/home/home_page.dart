@@ -1,37 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flicksy/feature/home/presentation/providers/view_model_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 part 'widgets/horizontal_movie_list.dart';
 part 'widgets/label_text.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _LabelText(text: '가장 인기있는'),
-              _MoviePoster(),
+  Widget build(BuildContext context, ref) {
+    final state = ref.watch(homeViewModelProvider);
 
-              _LabelText(text: '현재 상영중'),
-              _HorizontalMovieList(),
+    return state.when(
+      loading: () => Center(child: CircularProgressIndicator()),
+      error:
+          (error, stackTrace) =>
+              Row(children: [Icon(Icons.image_not_supported_outlined)]),
+      data: (data) {
+        return Scaffold(
+          body: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _LabelText(text: '가장 인기있는'),
+                  _MoviePoster(),
 
-              _LabelText(text: '인기순'),
-              _PopularMovieList(),
+                  _LabelText(text: '현재 상영중'),
+                  _HorizontalMovieList(),
 
-              _LabelText(text: '평점 높은 순'),
-              _HorizontalMovieList(),
+                  _LabelText(text: '인기순'),
+                  _PopularMovieList(),
 
-              _LabelText(text: '개봉예정'),
-              _HorizontalMovieList(),
-            ],
-          );
-        },
-      ),
+                  _LabelText(text: '평점 높은 순'),
+                  _HorizontalMovieList(),
+
+                  _LabelText(text: '개봉예정'),
+                  _HorizontalMovieList(),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
