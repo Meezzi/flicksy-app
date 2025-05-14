@@ -18,10 +18,20 @@ class _HorizontalMovieList extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(width: 12),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  '$posterBaseUrl${movieList[index].posterPath}',
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(id: movieList[index].id),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    '$posterBaseUrl${movieList[index].posterPath}',
+                  ),
                 ),
               );
             },
@@ -53,9 +63,23 @@ class _PopularMovieList extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 32),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network('$posterBaseUrl${movieList[index].posterPath}'),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    DetailPage(id: movieList[index].id),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          '$posterBaseUrl${movieList[index].posterPath}',
+                        ),
+                      ),
                     ),
                   ),
 
