@@ -20,18 +20,15 @@ class _MovieHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-              ),
-              Text(releaseDate),
-            ],
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           Text(overview),
-          Text(runningTime),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text(runningTime), Text(releaseDate)],
+          ),
         ],
       ),
     );
